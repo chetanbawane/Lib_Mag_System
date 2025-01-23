@@ -2,6 +2,9 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,12 +22,15 @@ public class Authors {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int AuthorID ;
 	@Column
+	@JsonProperty("Name")
 	private String Name ;
 	@Column
-	private String text ;
+	@JsonProperty("Bio")
+	private String Bio ;
 	
 	@OneToMany(mappedBy = "authors",cascade = CascadeType.ALL)
-	private List<Books> booklList;
+	@JsonBackReference
+	private List<Books> bookList;
 
 	public int getAuthorID() {
 		return AuthorID;
@@ -43,19 +49,19 @@ public class Authors {
 	}
 
 	public String getText() {
-		return text;
+		return Bio;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setText(String Bio) {
+		this.Bio = Bio;
 	}
 
-	public List<Books> getBooklList() {
-		return booklList;
+	public List<Books> getBookList() {
+		return bookList;
 	}
 
-	public void setBooklList(List<Books> booklList) {
-		this.booklList = booklList;
+	public void setBookList(List<Books> bookList) {
+		this.bookList = bookList;
 	}
 	
 	
